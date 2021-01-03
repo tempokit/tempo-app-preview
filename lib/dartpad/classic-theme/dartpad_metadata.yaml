@@ -1,0 +1,4 @@
+name: Classic Theme
+mode: flutter
+files:
+  - name: main.dart
