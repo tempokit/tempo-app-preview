@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-/// This is the main application widget.
 class MyApp extends StatelessWidget {
   static const String _title = 'App Preview';
 
@@ -10,24 +9,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: MyStatefulWidget(),
+      home: AppPreview(),
     );
   }
 }
 
-/// This is the stateful widget that the main application instantiates.
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+class AppPreview extends StatefulWidget {
+  AppPreview({Key key}) : super(key: key);
 
   @override
-  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+  _AppPreviewState createState() => _AppPreviewState();
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _AppPreviewState extends State<AppPreview> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,10 +30,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildWorkoutsTab(BuildContext context) {
     var items = [1, 2, 3, 4];
-    ListView list = ListView.builder(
+
+    ListView workouts = ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
           return ListTile(
@@ -46,16 +41,53 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           );
         });
 
+    return workouts;
+  }
+
+  Widget _buildTrackTab(BuildContext context) {
+    var items = [3, 2, 3, 4];
+    ListView track = ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text('${items[index]}'),
+          );
+        });
+    return track;
+  }
+
+  Widget _buildPostsTab(BuildContext context) {
+    var items = [4, 2, 3, 4];
+    ListView posts = ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text('${items[index]}'),
+          );
+        });
+    return posts;
+  }
+
+  Widget _buildSettingsTab(BuildContext context) {
+    var items = [5, 2, 3, 4];
+    ListView settings = ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text('${items[index]}'),
+          );
+        });
+
+    return settings;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      list,
-      Text(
-        'Index 1: Business',
-        style: optionStyle,
-      ),
-      Text(
-        'Index 2: School',
-        style: optionStyle,
-      ),
+      _buildWorkoutsTab(context),
+      _buildTrackTab(context),
+      _buildPostsTab(context),
+      _buildSettingsTab(context),
     ];
 
     return Scaffold(
@@ -68,15 +100,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.fitness_center),
             label: 'Workouts',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: Icon(Icons.track_changes),
+            label: 'Track',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
             label: 'Posts',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Icon(Icons.settings),
             label: 'Settings',
           ),
         ],
@@ -87,3 +123,4 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
+
